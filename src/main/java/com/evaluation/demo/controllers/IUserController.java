@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface IUserController {
 
-    public List<User> listUser();
-    public ResponseEntity addUser(User user);
-    public User viewUser(String id);
-    public ResponseEntity editUser(User user);
-    public ResponseEntity deleteUser(User user);
-    public ResponseEntity saveUser(User user);
+    List<User> listUser();
+    ResponseEntity addUser(User user);
+    User viewUser(String id);
+    ResponseEntity editUser(User user);
+    ResponseEntity deleteUser(String id);
+    ResponseEntity saveUser(User user);
 
 }

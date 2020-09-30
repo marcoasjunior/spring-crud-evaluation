@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
+import java.util.Optional;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080/")
 @RestController
 public class UserController implements IUserController {
 
@@ -56,11 +57,16 @@ public class UserController implements IUserController {
 
     @Override
     @DeleteMapping
-    public ResponseEntity deleteUser(@RequestBody User user) {
+    public ResponseEntity deleteUser(@RequestParam String id) {
+
+        Integer userId = Integer.parseInt(id);
+
+        User user = repo.findById(userId).get();
 
         repo.delete(user);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+
     }
 
     @Override
