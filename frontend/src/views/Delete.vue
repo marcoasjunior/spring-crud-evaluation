@@ -2,18 +2,14 @@
     <div class="home">
         <section class="form">
             <b-field label="Usuário">
-            <b-select v-model="selected" placeholder="Selecione">
-                <option
-                    v-for="option in list"
-                    :value="option.id"
-                    :key="option.id">
-                    {{ option.name }}
-                </option>
-            </b-select>
-        </b-field>
-        <b-button @click="submit">Click Me</b-button>
+                <b-select v-model="selected" placeholder="Selecione">
+                    <option v-for="option in list" :value="option.id" :key="option.id">
+                        {{ option.name }}
+                    </option>
+                </b-select>
+            </b-field>
+            <b-button @click="submit">Deletar</b-button>
         </section>
-
     </div>
 </template>
 
@@ -37,7 +33,7 @@ export default {
 
             if (!this.selected) return alert('Usuário não escolhido.')
 
-            const response = await this.axios.delete('http://localhost:8081/' + this.selected)
+            const response = await this.axios.delete('http://localhost:8081/?id=' + this.selected)
 
             if (response) {
 
@@ -60,8 +56,6 @@ export default {
         const response = await this.axios.get('http://localhost:8081/index')
 
         this.list = response.data
-
-        console.log(response.data)
 
     }
 }

@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:8080/")
+@CrossOrigin()
 @RestController
 public class UserController implements IUserController {
 
@@ -37,7 +36,7 @@ public class UserController implements IUserController {
     }
 
     @Override
-    @GetMapping()
+    @GetMapping("/find")
     public User viewUser(@RequestParam String id) {
 
         Integer userId = Integer.parseInt(id);

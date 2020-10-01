@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Add Usuário</router-link> |
-      <router-link to="/List">Listar Usuários</router-link> |
-      <router-link to="/Delete">Deletar Usuários</router-link> |
+      <router-link to="/">Add </router-link> |
+      <router-link to="/List">Listar </router-link> |
+      <router-link to="/Delete">Deletar </router-link> |
+      <router-link to="/View">Visualizar </router-link> |
+      <router-link to="/Edit">Editar </router-link> 
     </div>
     <router-view/>
   </div>

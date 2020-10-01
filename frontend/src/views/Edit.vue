@@ -1,5 +1,15 @@
 <template>
     <div class="home">
+        <section class="form">
+            <b-field label="Usuário">
+                <b-select v-model="selected" placeholder="Selecione">
+                    <option v-for="option in list" :value="option.id" :key="option.id">
+                        {{ option.name }}
+                    </option>
+                </b-select>
+            </b-field>
+            <b-button @click="find">Selecionar</b-button>
+        </section>
         <section class="columns form">
             <div class="column">
                 <b-field label="Nome">
@@ -25,11 +35,13 @@
 
 <script>
 
-
 export default {
   name: 'Add',
   data() {
       return {
+          selected:  null,
+          list: null,
+          user: null,
           form: {
 
             email: null,
@@ -47,9 +59,15 @@ export default {
 
             if (!this.form.name || !this.form.password || !this.form.email) return alert('Faltam dados serem preenchidos.')
 
+            this.form.id = this.selected
+
             try {
 
-                await this.axios.post('http://localhost:8081/', this.form)
+                await this.axios.put('http://localhost:8081/', this.form)
+
+                const response = await this.axios.get('http://localhost:8081/index')    
+                
+                this.list = response.data
 
                 alert('Salvo com sucesso.')
                 
@@ -59,8 +77,32 @@ export default {
                 
             }
 
-        }      
+        },
+
+        async find() {
+
+            if (!this.selected) return alert('Usuário não escolhido.')
+
+            const { data } = await this.axios.get('http://localhost:8081/find?id=' + this.selected)
+
+            this.form.email = data.email
+            this.form.name = data.name
+            this.form.password = data.password
+
+            if (!data) return alert('Erro ao deletar.')
+
+        },
+        
+
     },
+
+    async beforeCreate() {
+
+        const response = await this.axios.get('http://localhost:8081/index')
+
+        return this.list = response.data
+
+    }
 }
 </script>
 
